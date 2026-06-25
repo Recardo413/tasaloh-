@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>إلى وصال ❤️</title>
+  <style>
+    :root {
+      --pink: #ff93ca;
+      --soft-purple: #b993ff;
+      --cream: #fff3fb;
+      --white: #ffffff;
+      --dark: #4a2a5f;
+      --shadow: 0 18px 40px rgba(139, 61, 148, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at top, rgba(255, 147, 202, 0.25), transparent 35%),
+                  radial-gradient(circle at bottom right, rgba(185, 147, 255, 0.22), transparent 32%),
+                  linear-gradient(180deg, #ffe3f7 0%, #f9edf8 50%, #fdfbff 100%);
+      color: #3f2350;
+      overflow-x: hidden;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 3rem 0 4rem;
+    }
+
+    .hero {
+      position: relative;
+      padding: 2rem 2rem 3rem;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+
+    .hero::before,
+    .hero::after {
+      content: '';
+      position: absolute;
+      border-radius: 999px;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 260px;
+      height: 260px;
+      top: -80px;
+      right: -80px;
+      background: radial-gradient(circle, rgba(255, 147, 202, 0.7), transparent 55%);
+    }
+
+    .hero::after {
+      width: 180px;
+      height: 180px;
+      left: -50px;
+      bottom: 20px;
+      background: radial-gradient(circle, rgba(185, 147, 255, 0.65), transparent 55%);
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 4.2rem);
+      line-height: 1.05;
+      letter-spacing: -0.05em;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .title-group {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .subtitle {
+      display: block;
+      font-size: 1.1rem;
+      color: #7a4e92;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .message {
+      display: grid;
+      gap: 1.25rem;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #4c2d5d;
+      margin-bottom: 2rem;
+    }
+
+    .message p {
+      background: rgba(255, 255, 255, 0.92);
+      padding: 1.35rem 1.4rem;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 147, 202, 0.25);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+    }
+
+    .message p:not(:last-child) {
+      position: relative;
+      animation: floatText 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatText {
+      to { transform: translateY(-6px); }
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 1rem 1.7rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 250ms ease, box-shadow 250ms ease, background 250ms ease;
+      box-shadow: 0 18px 30px rgba(170, 81, 170, 0.16);
+    }
+
+    button:hover {
+      transform: translateY(-3px) scale(1.01);
+    }
+
+    .button-sorry {
+      background: linear-gradient(135deg, #ff93ca, #d679f9);
+      color: #fff;
+    }
+
+    .button-think {
+      background: linear-gradient(135deg, rgba(255,255,255,0.95), #f0d7ff);
+      color: #7a4e92;
+      border: 1px solid rgba(122, 78, 146, 0.16);
+    }
+
+    .button-think.move {
+      position: absolute;
+      z-index: 10;
+    }
+
+    .response-card {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      padding: 1.7rem 1.6rem;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 215, 244, 0.72));
+      border: 1px solid rgba(255, 142, 192, 0.35);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .response-card.active {
+      display: flex;
+      animation: popIn 400ms ease forwards;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .response-card h2 {
+      font-size: 2rem;
+      color: #7a2a6f;
+    }
+
+    .response-card span {
+      font-size: 1rem;
+      color: #4f2e61;
+    }
+
+    .game-section {
+      margin-top: 3rem;
+      padding: 2rem;
+      border-radius: 34px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(185, 147, 255, 0.2);
+      box-shadow: var(--shadow);
+    }
+
+    .game-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.4rem;
+    }
+
+    .game-header h3 {
+      font-size: clamp(1.6rem, 2.5vw, 2rem);
+      color: #612f83;
+    }
+
+    .game-board {
+      position: relative;
+      min-height: 310px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 238, 251, 0.95));
+      border-radius: 24px;
+      border: 1px dashed rgba(185, 147, 255, 0.35);
+      overflow: hidden;
+      padding: 1.4rem;
+      display: grid;
+      place-items: center;
+    }
+
+    .court {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      background: radial-gradient(circle at top left, rgba(255, 147, 202, 0.14), transparent 20%),
+                  radial-gradient(circle at bottom right, rgba(185, 147, 255, 0.18), transparent 20%);
+      border-radius: 24px;
+    }
+
+    .basket {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 5px solid #d46ad1;
+      box-shadow: 0 0 0 12px rgba(255, 255, 255, 0.55) inset;
+      display: grid;
+      place-items: center;
+      color: #d46ad1;
+    }
+
+    .basket::before {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 80px;
+      background: rgba(122, 78, 146, 0.16);
+      left: -18px;
+      top: 5px;
+      border-radius: 12px;
+      transform: rotate(-18deg);
+    }
+
+    .ball {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: radial-gradient(circle at top left, #ffb14f, #ff8b5f);
+      border: 2px solid #f97f39;
+      position: absolute;
+      display: grid;
+      place-items: center;
+      cursor: grab;
+      box-shadow: 0 14px 24px rgba(149, 67, 143, 0.16);
+      transition: transform 150ms ease;
+    }
+
+    .ball:active {
+      cursor: grabbing;
+      transform: scale(1.05);
+    }
+
+    .ball::before,
+    .ball::after {
+      content: '';
+      position: absolute;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 999px;
+    }
+
+    .ball::before {
+      width: 4px;
+      height: 42px;
+      left: 50%;
+      top: 4px;
+      transform: translateX(-50%);
+    }
+
+    .ball::after {
+      width: 42px;
+      height: 4px;
+      left: 4px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .scoreboard {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      padding: 0.95rem 1rem;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(255, 147, 202, 0.22);
+      color: #5d3179;
+      font-weight: 600;
+    }
+
+    .scoreboard span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .win-card {
+      display: none;
+      margin-top: 1.5rem;
+      padding: 1.5rem 1.4rem;
+      border-radius: 26px;
+      background: linear-gradient(180deg, rgba(255, 237, 246, 0.98), rgba(255, 219, 237, 0.9));
+      border: 1px solid rgba(255, 135, 187, 0.3);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .win-card.active {
+      display: block;
+      animation: glowIn 500ms ease;
+    }
+
+    @keyframes glowIn {
+      from { opacity: 0; transform: scale(0.97); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .win-card strong {
+      display: block;
+      margin-top: 0.75rem;
+      color: #8e368c;
+    }
+
+    .quote-section {
+      margin-top: 3rem;
+      padding: 2rem 1.6rem;
+      text-align: center;
+      border-radius: 32px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(233, 193, 245, 0.56));
+      box-shadow: var(--shadow);
+    }
+
+    .quote-section p {
+      font-size: clamp(1rem, 1.1vw, 1.15rem);
+      margin-top: 1rem;
+      color: #5d3477;
+      line-height: 1.85;
+    }
+
+    .footer {
+      margin-top: 3rem;
+      text-align: center;
+      color: #6d4a7e;
+      font-size: 0.95rem;
+    }
+
+    .stars, .hearts {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    .stars span,
+    .hearts span {
+      position: absolute;
+      font-size: 0.9rem;
+      opacity: 0.85;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .stars span:nth-child(odd) { animation-duration: 5.5s; }
+    .hearts span:nth-child(odd) { animation-duration: 7s; }
+
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); opacity: 0.8; }
+      50% { transform: translateY(-18px) scale(1.05); opacity: 1; }
+      100% { transform: translateY(0) scale(0.96); opacity: 0.8; }
+    }
+
+    .confetti {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      overflow: hidden;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: linear-gradient(45deg, #ff93ca, #ffc4e6);
+      opacity: 0.95;
+      border-radius: 4px;
+      animation: fall 2.8s ease-in forwards;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(120vh) rotate(540deg); opacity: 0; }
+    }
+
+    @media (max-width: 720px) {
+      .page { padding: 2rem 0 3rem; }
+      .hero { padding: 1.8rem 1.4rem 2.8rem; }
+      .message { gap: 1rem; }
+      .actions { flex-direction: column; }
+      button { width: 100%; }
+      .game-header { flex-direction: column; align-items: flex-start; }
+      .basket { right: 12px; width: 78px; height: 78px; }
+      .ball { width: 38px; height: 38px; }
+      .scoreboard { font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="hero">
+      <div class="stars">
+        <span style="top:10%; left:14%;">⭐</span>
+        <span style="top:30%; left:82%;">✨</span>
+        <span style="top:68%; left:20%;">⭐</span>
+        <span style="top:52%; left:60%;">✨</span>
+      </div>
+      <div class="hearts">
+        <span style="top:18%; left:28%;">❤️</span>
+        <span style="top:36%; left:76%;">💜</span>
+        <span style="top:82%; left:48%;">💕</span>
+      </div>
+      <div class="title-group">
+        <h1>إلى وصال ❤️</h1>
+        <h1>To Wissal ❤️</h1>
+      </div>
+      <div class="subtitle">A heartfelt apology page from a friend who cares deeply.</div>
+      <div class="message">
+        <p>وصال، بغيت نقول ليك بلي داك الهضرة اللي قلتها ما كانتش خاصها تخرج مني. ملي قلتي ليا بلي راك اختطفوك، جاوبتك بطريقة خايبة وفرحت فبلاصت ما نوقف معاك. دابا فهمت بلي جرحتك وكنتمنى تسامحيني. حنا صحاب وما بغيتش نخسر صداقتنا.</p>
+        <p>Wissal, I want to apologize for what I said. When you told me what happened, I reacted badly and said something hurtful. I know I made a mistake and I truly regret it. Our friendship means a lot to me and I hope we can stay friends.</p>
+      </div>
+      <div class="actions">
+        <button class="button-sorry" id="forgiveBtn">نسامحك ❤️</button>
+        <button class="button-think" id="thinkBtn">مازال كنفكر 😅</button>
+      </div>
+      <div class="response-card" id="responseCard">
+        <h2 id="responseTitle">شكراً ❤️</h2>
+        <span id="responseSubtitle">You just made my day!</span>
+      </div>
+    </section>
+
+    <section class="game-section">
+      <div class="game-header">
+        <h3>جمع الكرات باش تربح الصداقة 🏀</h3>
+        <div class="scoreboard"><span id="BallsCollected">0</span> / 10 كرة</div>
+      </div>
+      <div class="game-board">
+        <div class="court" id="court">
+          <div class="basket"></div>
+        </div>
+      </div>
+      <div class="win-card" id="winCard">
+        <div>Congratulations Wissal!</div>
+        <strong>Friendship Restored ❤️🏀</strong>
+      </div>
+    </section>
+
+    <section class="quote-section">
+      <h3>الأصدقاء الحقيقيون ماشي اللي ما كيغلطوش، الأصدقاء الحقيقيون هما اللي كيعرفو يصلحو أخطاءهم.</h3>
+      <p>True friends are not the ones who never make mistakes, but the ones who fix them.</p>
+    </section>
+
+    <footer class="footer">Made with respect and friendship for Wissal ❤️</footer>
+  </div>
+  <div class="confetti" id="confetti"></div>
+
+  <script>
+    const forgiveBtn = document.getElementById('forgiveBtn');
+    const thinkBtn = document.getElementById('thinkBtn');
+    const responseCard = document.getElementById('responseCard');
+    const responseTitle = document.getElementById('responseTitle');
+    const responseSubtitle = document.getElementById('responseSubtitle');
+    const confetti = document.getElementById('confetti');
+    const court = document.getElementById('court');
+    const scoreSpan = document.getElementById('BallsCollected');
+    const winCard = document.getElementById('winCard');
+    let collected = 0;
+    let thinkMoving = false;
+
+    forgiveBtn.addEventListener('click', () => {
+      showResponse('شكراً ❤️', 'You just made my day!');
+      triggerConfetti();
+    });
+
+    thinkBtn.addEventListener('mouseover', () => {
+      if (!thinkMoving) moveThinkButton();
+    });
+
+    thinkBtn.addEventListener('click', () => {
+      if (!thinkMoving) moveThinkButton();
+    });
+
+    function showResponse(title, subtitle) {
+      responseTitle.textContent = title;
+      responseSubtitle.textContent = subtitle;
+      responseCard.classList.add('active');
+      setTimeout(() => responseCard.classList.remove('active'), 4500);
+    }
+
+    function triggerConfetti() {
+      confetti.innerHTML = '';
+      for (let i = 0; i < 24; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.left = Math.random() * 100 + 'vw';
+        piece.style.background = `linear-gradient(45deg, ${randomColor()}, ${randomColor()})`;
+        piece.style.animationDuration = 2.2 + Math.random() * 1.2 + 's';
+        piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+        confetti.appendChild(piece);
+      }
+      setTimeout(() => confetti.innerHTML = '', 3200);
+    }
+
+    function randomColor() {
+      const colors = ['#ff93ca', '#f7b9ff', '#ffd3e8', '#b993ff', '#ff9cdd'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    function moveThinkButton() {
+      thinkMoving = true;
+      const rect = court.getBoundingClientRect();
+      const x = Math.random() * (rect.width - 140);
+      const y = Math.random() * (rect.height - 48);
+      thinkBtn.style.position = 'absolute';
+      thinkBtn.style.left = rect.left + x + 'px';
+      thinkBtn.style.top = rect.top + window.scrollY + y + 'px';
+      thinkBtn.classList.add('move');
+      setTimeout(() => {
+        thinkBtn.style.left = '';
+        thinkBtn.style.top = '';
+        thinkBtn.classList.remove('move');
+        thinkMoving = false;
+      }, 900);
+    }
+
+    function createBall(index) {
+      const ball = document.createElement('div');
+      ball.className = 'ball';
+      const x = 40 + (index % 5) * 16;
+      const y = 30 + Math.floor(index / 5) * 18;
+      ball.style.left = x + '%';
+      ball.style.top = y + '%';
+      ball.setAttribute('draggable', 'true');
+      ball.dataset.index = index;
+      court.appendChild(ball);
+      ball.addEventListener('dragstart', dragStart);
+      ball.addEventListener('click', () => attemptCollect(ball));
+      return ball;
+    }
+
+    function dragStart(event) {
+      event.dataTransfer.setData('text/plain', event.target.dataset.index);
+      setTimeout(() => event.target.classList.add('dragging'), 0);
+    }
+
+    court.addEventListener('dragend', (event) => {
+      event.target.classList.remove('dragging');
+    });
+
+    court.addEventListener('dragover', (event) => {
+      event.preventDefault();
+    });
+
+    const basket = document.querySelector('.basket');
+    basket.addEventListener('dragover', (event) => event.preventDefault());
+    basket.addEventListener('drop', (event) => {
+      event.preventDefault();
+      const index = event.dataTransfer.getData('text/plain');
+      const ball = court.querySelector(`.ball[data-index="${index}"]`);
+      if (ball) attemptCollect(ball);
+    });
+
+    function attemptCollect(ball) {
+      if (!ball || ball.dataset.collected) return;
+      ball.dataset.collected = 'true';
+      ball.style.transition = 'transform 400ms ease, opacity 400ms ease';
+      ball.style.transform = 'translate(130px, -20px) scale(0.4) rotate(30deg)';
+      ball.style.opacity = '0';
+      collected += 1;
+      scoreSpan.textContent = collected;
+      setTimeout(() => ball.remove(), 500);
+      if (collected >= 10) showWin();
+    }
+
+    function showWin() {
+      winCard.classList.add('active');
+      triggerConfetti();
+    }
+
+    for (let i = 0; i < 10; i++) createBall(i);
+  </script>
+</body>
+</html>
